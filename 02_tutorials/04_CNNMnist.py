@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # _*_ coding:utf-8 _*_
 
+"""
+使用Tensorflow完成CNN Model
+"""
+
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -10,7 +14,6 @@ import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
 
 tf.logging.set_verbosity(tf.logging.INFO)
-
 
 def cnn_model_fn(features, labels, mode):
     # Input Layer

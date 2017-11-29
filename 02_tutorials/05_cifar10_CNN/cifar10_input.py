@@ -140,6 +140,8 @@ def inputs(eval_data, data_dir, batch_size):
     :param batch_size:
     :return:
     """
+
+    # 判断是否是测试数据
     if not eval_data:
         filenames = [os.path.join(data_dir, 'data_batch_%d.bin') % i for i in range(1, 6)]
         num_examples_per_epoch = NUM_EXAMPLES_PER_EPOCH_FOR_TRAIN
@@ -151,17 +153,17 @@ def inputs(eval_data, data_dir, batch_size):
         if not tf.gfile.Exists(f):
             raise ValueError('Failed to find file: ' + f)
 
-    # 构建队列
+    # 构建目标数据路径队列
     filename_queue = tf.train.string_input_producer(filenames)
 
-    # 从文件队列中去读记录
+    # 从文件队列中读记录
     read_input = read_cifar10(filename_queue)
     reshaped_image = tf.cast(read_input.uint8image, tf.float32)
 
     height = IMAGE_SIZE
     width = IMAGE_SIZE
 
-    resized_image = tf.image.resize_image_with_crop_or_pad(reshaped_image, height, width)
+    resized_image = tf.image.resize_image_with_crop_or_pad(reshaped_image, height, width)  # 裁剪或填充图片
     float_image = tf.image.per_image_standardization(resized_image)
 
     #

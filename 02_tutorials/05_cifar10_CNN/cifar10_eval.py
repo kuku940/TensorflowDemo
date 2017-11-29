@@ -110,6 +110,8 @@ def evaluate():
         summary_op = tf.summary.merge_all()
 
         summary_writer = tf.summary.FileWriter(FLAGS.eval_dir, g)
+
+        # 每隔指定时间评估下精度
         while True:
             eval_once(saver, summary_writer, top_k_op, summary_op)
             if FLAGS.run_once:
